@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anael Ribeiro — Technical Support Engineer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0a1628;
+      --blue:   #0070f2;
+      --light:  #f4f7fc;
+      --white:  #ffffff;
+      --grey:   #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--light);
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 60px 24px 48px;
+      text-align: center;
+    }
+
+    .photo-wrap {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 24px;
+      border: 4px solid var(--blue);
+      box-shadow: 0 0 0 6px rgba(0,112,242,0.18);
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; }
+    header h2 { font-size: 1.1rem; font-weight: 400; color: #94a3b8; margin-top: 8px; }
+
+    .header-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .tag {
+      background: rgba(0,112,242,0.2);
+      color: #93c5fd;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .contact-row a {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .contact-row a:hover { color: var(--white); text-decoration: none; }
+
+    /* ── SECTIONS ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    section { background: var(--white); border-radius: var(--radius); padding: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    /* ── ABOUT ── */
+    .about-text { font-size: 1rem; color: #334155; }
+
+    /* ── METRICS ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+    }
+
+    .metric-card {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .metric-value { font-size: 1.8rem; font-weight: 700; color: var(--blue); }
+    .metric-label { font-size: 0.8rem; color: var(--grey); margin-top: 4px; }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 24px; }
+
+    .exp-item { border-left: 3px solid var(--blue); padding-left: 16px; }
+    .exp-header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px; }
+    .exp-company { font-weight: 700; font-size: 1rem; }
+    .exp-role { color: var(--grey); font-size: 0.9rem; margin-top: 2px; }
+    .exp-period { font-size: 0.82rem; color: var(--grey); white-space: nowrap; }
+    .exp-bullets { margin-top: 10px; padding-left: 18px; }
+    .exp-bullets li { font-size: 0.92rem; color: #334155; margin-bottom: 5px; }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-group-title { font-size: 0.8rem; font-weight: 700; color: var(--grey); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tag {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.82rem;
+      color: #334155;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--light);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .project-screenshot {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-body { padding: 16px; }
+    .project-name { font-weight: 700; font-size: 0.95rem; color: #0f172a; }
+    .project-desc { font-size: 0.85rem; color: var(--grey); margin-top: 6px; line-height: 1.5; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+    .project-tech span {
+      background: #e0e7ff;
+      color: #3730a3;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .project-demo-btn {
+      display: inline-block;
+      margin-top: 12px;
+      margin-right: 6px;
+      padding: 6px 14px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .project-demo-btn:hover { background: #0057c2; }
+    .project-link-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 14px;
+      background: transparent;
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+    }
+    .project-link-btn:hover { background: #e8f0fe; text-decoration: none; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 14px;
+      max-width: 960px;
+      width: 100%;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: #fff;
+    }
+    .modal-title { font-size: 1.1rem; font-weight: 700; color: #0f172a; }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--grey);
+      line-height: 1;
+      padding: 0 4px;
+    }
+    .modal-close:hover { color: #0f172a; }
+    .modal-body { padding: 20px 24px 24px; }
+    .modal-screenshots {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .modal-shot { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+    .modal-shot img { width: 100%; display: block; }
+    .modal-shot-label { padding: 8px 12px; font-size: 0.8rem; color: var(--grey); background: var(--light); }
+
+    /* ── CERTIFICATIONS ── */
+    .cert-list { display: flex; flex-direction: column; gap: 10px; }
+    .cert-item { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; padding: 10px 14px; background: var(--light); border-radius: 8px; border: 1px solid var(--border); }
+    .cert-name { font-size: 0.9rem; font-weight: 600; }
+    .cert-meta { font-size: 0.8rem; color: var(--grey); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.85rem;
+      color: var(--grey);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.6rem; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      section { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="photo-wrap">
+    <img src="photo.jpg" alt="Anael Ribeiro" />
+  </div>
+  <h1>Anael Ribeiro</h1>
+  <h2>Technical Support Engineer &nbsp;·&nbsp; ERP Integrations &nbsp;·&nbsp; Database &amp; Automation</h2>
+
+  <div class="header-tags">
+    <span class="tag">ERP Integrations</span>
+    <span class="tag">SQL Server</span>
+    <span class="tag">Root Cause Analysis</span>
+    <span class="tag">Technical Support</span>
+    <span class="tag">Python &amp; JavaScript</span>
+    <span class="tag">AI &amp; Automation</span>
+    <span class="tag">Remote · Brazil</span>
+  </div>
+
+  <div class="contact-row">
+    <a href="mailto:anaelsribeiro@gmail.com">✉ anaelsribeiro@gmail.com</a>
+    <a href="https://linkedin.com/in/anael-ribeiro" target="_blank">🔗 LinkedIn</a>
+    <a href="tel:+5551992700539">📞 +55 (51) 99270-0539</a>
+    <a href="https://anaelribeiro.github.io/resume.pdf" target="_blank">⬇ Download Resume</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="section-title">About</div>
+    <p class="about-text">
+      IT professional with 10+ years of experience in technical support, ERP integrations, and database administration. Proven track record resolving 2,584+ cases with 94% CSAT, recognized as regional reference for the Americas, and voted reference point by 22 peers. Skilled in SQL Server, SAP HANA, Oracle, Azure, JSON analysis, and financial posting flows. Experienced building internal tools and automation solutions that improve team productivity. Known for working efficiently in global environments, collaborating with cross-functional teams, and contributing improvements implemented directly into enterprise products.
+    </p>
+  </section>
+
+  <!-- METRICS -->
+  <section>
+    <div class="section-title">By the Numbers</div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">2,584+</div>
+        <div class="metric-label">Cases Resolved</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">94%</div>
+        <div class="metric-label">CSAT Score</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">~16h</div>
+        <div class="metric-label">Avg. Resolution Time</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">130+</div>
+        <div class="metric-label">Peer Recognitions</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">50+</div>
+        <div class="metric-label">Knowledge Articles</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">8+</div>
+        <div class="metric-label">Years of Experience</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section>
+    <div class="section-title">Experience</div>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">SAP</div>
+            <div class="exp-role">Technical Support Engineer — ERP Integrations &amp; Financial Posting</div>
+          </div>
+          <div class="exp-period">Dec 2021 – Present</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Resolved 2,584+ technical cases involving ERP integrations, financial posting flows, JSON payloads, and statutory requirements — 94% CSAT, ~16h avg. resolution</li>
+          <li>Analyzed integration behavior, audit records, and configuration settings to identify root causes and provide technical guidance</li>
+          <li>Supported complex ERP integration scenarios including financial posting, mapping logic, exchange rates, and tax behavior</li>
+          <li>Voted reference point by 22 peers; regional reference for the Americas in statutory integrations</li>
+          <li>Built internal tools and automation scripts adopted by the team; contributed ideas implemented directly into the product</li>
+          <li>Published 50+ knowledge articles; trained multiple support teams</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Globalsys Soluções em TI</div>
+            <div class="exp-role">DBA — SQL Server, Oracle (Short-term Contract)</div>
+          </div>
+          <div class="exp-period">Oct – Dec 2021</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>24x7 monitoring of enterprise database environments for clients including Nestlé, ArcelorMittal, and Petz</li>
+          <li>Supported SQL Server, Oracle, MySQL, MariaDB, PostgreSQL, and SAP HANA environments</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Sensormatic (Johnson Controls)</div>
+            <div class="exp-role">Database Administrator — SQL Server &amp; SAP HANA</div>
+          </div>
+          <div class="exp-period">Oct 2020 – Oct 2021</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Administered SQL Server and SAP HANA (256GB in-memory) on Microsoft Azure for client Renner — RFID TrueVUE system</li>
+          <li>Configured transactional replication and performed production cluster migration</li>
+          <li>Developed Grafana dashboards; collaborated with international teams (India &amp; USA)</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Henrique Stefani Transportes</div>
+            <div class="exp-role">Systems Analyst (promoted from Support)</div>
+          </div>
+          <div class="exp-period">Apr 2019 – Oct 2020</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Acted as interface between business users and external software provider</li>
+          <li>Developed BI reports and web solutions using SQL Server, Crystal Reports, and LATROMI Framework</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Weber Sistemas de Gestão</div>
+            <div class="exp-role">Technical Support Lead</div>
+          </div>
+          <div class="exp-period">Sep 2016 – Mar 2019</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Led team of 4 support technicians and 5 implementation specialists</li>
+          <li>Optimized SLA to ~20 seconds average response time after taking over supervision</li>
+          <li>Supported ERP implementation, database configuration, and data migration</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <div class="section-title">Skills &amp; Technologies</div>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-group-title">ERP &amp; Integrations</div>
+        <div class="skill-tags">
+          <span class="skill-tag">ERP Integrations</span>
+          <span class="skill-tag">Financial Posting</span>
+          <span class="skill-tag">JSON Payloads</span>
+          <span class="skill-tag">Tax &amp; VAT</span>
+          <span class="skill-tag">Mapping Logic</span>
+          <span class="skill-tag">SAP ECC</span>
+          <span class="skill-tag">SAP S/4HANA</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">SQL Server</span>
+          <span class="skill-tag">T-SQL</span>
+          <span class="skill-tag">PL/SQL</span>
+          <span class="skill-tag">Oracle</span>
+          <span class="skill-tag">SAP HANA</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MariaDB</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">Database Expertise</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Query Tuning</span>
+          <span class="skill-tag">Stored Procedures</span>
+          <span class="skill-tag">Transactional Replication</span>
+          <span class="skill-tag">High Availability</span>
+          <span class="skill-tag">Backup / Restore</span>
+          <span class="skill-tag">Cluster Migration</span>
+          <span class="skill-tag">Data Migration</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">Tools &amp; Platforms</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Postman</span>
+          <span class="skill-tag">Salesforce</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">Grafana</span>
+          <span class="skill-tag">Microsoft Azure</span>
+          <span class="skill-tag">SSMS</span>
+          <span class="skill-tag">Crystal Reports</span>
+          <span class="skill-tag">Advanced Excel</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">Development &amp; Automation</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">HTML / CSS</span>
+          <span class="skill-tag">AI Automation</span>
+          <span class="skill-tag">Scripting</span>
+          <span class="skill-tag">Browser Extensions</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">Support &amp; Analysis</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Root Cause Analysis</span>
+          <span class="skill-tag">Technical Support</span>
+          <span class="skill-tag">Case Management</span>
+          <span class="skill-tag">Knowledge Management</span>
+          <span class="skill-tag">Data Validation</span>
+          <span class="skill-tag">KPI Reporting</span>
+          <span class="skill-tag">Business Intelligence</span>
+          <span class="skill-tag">Team Leadership</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section>
+    <div class="section-title">Personal Projects</div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <img class="project-screenshot" src="screenshot-ics.png" alt="SAP Concur ICS Tools" />
+        <div class="project-body">
+          <div class="project-name">Support Tooling Suite — ICS Tools</div>
+          <div class="project-desc">Browser extension with JSON reader, ERP status analyzer, mapping services reader, JSON comparator, and in-page search. Adopted by the support team.</div>
+          <div class="project-tech"><span>JavaScript</span><span>HTML/CSS</span><span>Browser Extension</span></div>
+          <button class="project-demo-btn" onclick="openModal('modal-ics')">▶ See it in action</button>
+          <a class="project-link-btn" href="https://anaelribeiro.github.io/support-tools/" target="_blank">🌐 Try it live</a>
+          <a class="project-link-btn" href="https://github.com/anaelribeiro/support-tools" target="_blank">⌥ View code</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img class="project-screenshot" src="screenshot-sql.png" alt="SQL Tools" />
+        <div class="project-body">
+          <div class="project-name">Support Tooling Suite — SQL Tools</div>
+          <div class="project-desc">SQL Join Generator with ERD diagram, assisted WHERE builder, DDL parser, export/import, Query Column Selector, and SQL Formatter.</div>
+          <div class="project-tech"><span>JavaScript</span><span>HTML/CSS</span><span>Browser Extension</span></div>
+          <button class="project-demo-btn" onclick="openModal('modal-sql')">▶ See it in action</button>
+          <a class="project-link-btn" href="https://anaelribeiro.github.io/sql-tools/" target="_blank">🌐 Try it live</a>
+          <a class="project-link-btn" href="https://github.com/anaelribeiro/sql-tools" target="_blank">⌥ View code</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img class="project-screenshot" src="screenshot-vat.png" alt="VAT Calculator" />
+        <div class="project-body">
+          <div class="project-name">Support Tooling Suite — VAT Calculator</div>
+          <div class="project-desc">Reverse tax calculator with Canada GST/HST/QST support, per-tax Tips logic, receipt status, reclaim calculation, and automatic proof validation.</div>
+          <div class="project-tech"><span>JavaScript</span><span>HTML/CSS</span><span>Browser Extension</span></div>
+          <button class="project-demo-btn" onclick="openModal('modal-vat')">▶ See it in action</button>
+          <a class="project-link-btn" href="https://anaelribeiro.github.io/tax-calculator/" target="_blank">🌐 Try it live</a>
+          <a class="project-link-btn" href="https://github.com/anaelribeiro/tax-calculator" target="_blank">⌥ View code</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img class="project-screenshot" src="screenshot-english.png" alt="English Coach" />
+        <div class="project-body">
+          <div class="project-name">AI English Coach</div>
+          <div class="project-desc">Full-stack local web app for English practice with AI-powered feedback, question banks, writing exercises, speaking practice, and progress tracking.</div>
+          <div class="project-tech"><span>Node.js</span><span>Express</span><span>SQLite</span><span>Google Gemini</span><span>Playwright</span></div>
+          <button class="project-demo-btn" onclick="openModal('modal-english')">▶ See it in action</button>
+          <a class="project-link-btn" href="https://github.com/anaelribeiro/english-coach" target="_blank">⌥ View code</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img class="project-screenshot" src="screenshot-salao.png" alt="Salon Management" />
+        <div class="project-body">
+          <div class="project-name">Salon Management System</div>
+          <div class="project-desc">Web application for salon operations — scheduling, client management, employee management, services, payments, and reporting.</div>
+          <div class="project-tech"><span>Node.js</span><span>Express</span><span>SQLite</span><span>EJS</span></div>
+          <button class="project-demo-btn" onclick="openModal('modal-salao')">▶ See it in action</button>
+          <a class="project-link-btn" href="https://github.com/anaelribeiro/salon-management" target="_blank">⌥ View code</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section>
+    <div class="section-title">Certifications</div>
+    <div class="cert-list">
+      <div class="cert-item">
+        <span class="cert-name">Working with Primary Configuration in Concur Expense, Professional Edition</span>
+        <span class="cert-meta">SAP · 05/2026</span>
+      </div>
+      <div class="cert-item">
+        <span class="cert-name">AI Literacy Training – General</span>
+        <span class="cert-meta">SAP · 05/2026</span>
+      </div>
+      <div class="cert-item">
+        <span class="cert-name">Coaching Skills – KCS Head Coach</span>
+        <span class="cert-meta">SAP · 06/2024</span>
+      </div>
+      <div class="cert-item">
+        <span class="cert-name">Generative AI at SAP</span>
+        <span class="cert-meta">SAP · 04/2024</span>
+      </div>
+      <div class="cert-item">
+        <span class="cert-name">Coaching Skills – KCS Coach</span>
+        <span class="cert-meta">SAP · 09/2023</span>
+      </div>
+      <div class="cert-item">
+        <span class="cert-name">Support Skills – KCS Publisher</span>
+        <span class="cert-meta">SAP · 09/2023</span>
+      </div>
+      <div class="cert-item">
+        <span class="cert-name">DBA Daily Tasks and Activities</span>
+        <span class="cert-meta">Power Tuning · 09/2021</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LANGUAGES -->
+  <section>
+    <div class="section-title">Languages</div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value" style="font-size:1.2rem;">🇧🇷 Portuguese</div>
+        <div class="metric-label">Native</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="font-size:1.2rem;">🇺🇸 English</div>
+        <div class="metric-label">Professional Working Proficiency</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="font-size:1.2rem;">🇪🇸 Spanish</div>
+        <div class="metric-label">Intermediate</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section>
+    <div class="section-title">Education</div>
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">FTEC – Faculdade de Tecnologia</div>
+          <div class="exp-role">Bachelor of Technology — Analysis and Systems Development</div>
+        </div>
+        <div class="exp-period">2014 – 2018</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Anael Ribeiro · São Leopoldo, RS, Brazil</p>
+  <p style="margin-top:6px;">anaelsribeiro@gmail.com · <a href="https://linkedin.com/in/anael-ribeiro">linkedin.com/in/anael-ribeiro</a></p>
+</footer>
+
+<!-- MODALS -->
+
+<!-- ICS Tools -->
+<div class="modal-overlay" id="modal-ics" onclick="closeModalOutside(event, 'modal-ics')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Support Tooling Suite — ICS Tools</div>
+      <button class="modal-close" onclick="closeModal('modal-ics')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-screenshots">
+        <div class="modal-shot">
+          <img src="screenshot-ics.png" alt="ICS Tools overview" />
+          <div class="modal-shot-label">Overview — sidebar navigation with multiple tools</div>
+        </div>
+        <div class="modal-shot">
+          <img src="demo-ics.png" alt="ICS Tools in use" />
+          <div class="modal-shot-label">Status Reader — upload JSON files to analyze posting status</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SQL Tools -->
+<div class="modal-overlay" id="modal-sql" onclick="closeModalOutside(event, 'modal-sql')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Support Tooling Suite — SQL Tools</div>
+      <button class="modal-close" onclick="closeModal('modal-sql')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-screenshots">
+        <div class="modal-shot">
+          <img src="demo-sql.gif" alt="SQL Tools in action" />
+          <div class="modal-shot-label">SQL Join Generator — adding tables via DDL, building query, and generating SQL with joins</div>
+        </div>
+        <div class="modal-shot">
+          <img src="screenshot-sql.png" alt="SQL Tools overview" />
+          <div class="modal-shot-label">Overview — WHERE builder, table panel, and ERD diagram</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VAT Calculator -->
+<div class="modal-overlay" id="modal-vat" onclick="closeModalOutside(event, 'modal-vat')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Support Tooling Suite — Tax Calculator</div>
+      <button class="modal-close" onclick="closeModal('modal-vat')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-screenshots">
+        <div class="modal-shot">
+          <img src="demo-vat-full.gif" alt="Tax Calculator full demo" />
+          <div class="modal-shot-label">Single Tax → Canada mode — reverse tax calculation, GST/QST reclaim with per-tax Tips logic</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- English Coach -->
+<div class="modal-overlay" id="modal-english" onclick="closeModalOutside(event, 'modal-english')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">AI English Coach</div>
+      <button class="modal-close" onclick="closeModal('modal-english')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-screenshots">
+        <div class="modal-shot">
+          <img src="screenshot-english.png" alt="English Coach dashboard" />
+          <div class="modal-shot-label">Dashboard — learning path with phases, streak tracking, and XP system</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Salão -->
+<div class="modal-overlay" id="modal-salao" onclick="closeModalOutside(event, 'modal-salao')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Salon Management System</div>
+      <button class="modal-close" onclick="closeModal('modal-salao')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-screenshots">
+        <div class="modal-shot">
+          <img src="screenshot-salao.png" alt="Salon dashboard" />
+          <div class="modal-shot-label">Dashboard — new appointment form with client, service, and employee selection</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e, id) {
+    if (e.target.classList.contains('modal-overlay')) closeModal(id);
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => {
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+</script>
+</body>
+</html>
