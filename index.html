@@ -324,7 +324,7 @@
   <div class="contact-row">
     <a href="mailto:anaelsribeiro@gmail.com">✉ anaelsribeiro@gmail.com</a>
     <a href="https://linkedin.com/in/anael-ribeiro" target="_blank">🔗 LinkedIn</a>
-    <a href="https://anaelribeiro.github.io/resume.pdf" target="_blank">⬇ Download Resume</a>
+    <a href="https://anaelribeiro.github.io/resume.pdf" target="_blank" onclick="logResumeDownload()">⬇ Download Resume</a>
   </div>
 </header>
 
@@ -920,6 +920,40 @@
       document.getElementById('typingIndicator')?.remove();
       addMsg('Sorry, something went wrong. Please try again.', 'bot');
     }
+  }
+
+  function logResumeDownload() {
+    try {
+      const ua = navigator.userAgent;
+      const getBrowser = () => {
+        if (ua.includes('Edg/')) return 'Edge';
+        if (ua.includes('OPR/') || ua.includes('Opera')) return 'Opera';
+        if (ua.includes('Chrome/')) return 'Chrome';
+        if (ua.includes('Firefox/')) return 'Firefox';
+        if (ua.includes('Safari/')) return 'Safari';
+        return 'Other';
+      };
+      const getOS = () => {
+        if (ua.includes('Windows')) return 'Windows';
+        if (ua.includes('Mac')) return 'macOS';
+        if (ua.includes('Linux')) return 'Linux';
+        if (ua.includes('Android')) return 'Android';
+        if (ua.includes('iPhone') || ua.includes('iPad')) return 'iOS';
+        return 'Other';
+      };
+      fetch('https://script.google.com/macros/s/AKfycbyTp7GACDYraOUcSuIm8NuOq78ubKW8usMRNPvis_nqljsk4ftyx-DDIFZtRzAp6mUH/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: 'resume_download',
+          language: navigator.language || 'unknown',
+          browser: getBrowser(),
+          os: getOS(),
+          referrer: document.referrer || 'direct',
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+        })
+      }).catch(() => {});
+    } catch(e) {}
   }
 </script>
 </body>
