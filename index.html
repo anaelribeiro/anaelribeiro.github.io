@@ -943,7 +943,8 @@
       };
       fetch('https://script.google.com/macros/s/AKfycbwUnLpg0ovB0udlem_fXbg7WJAyonCF4C3ZVhXmZe8uOUXrHb29gC_X-MClZGwYC7Jl/exec', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           event: 'resume_download',
           language: navigator.language || 'unknown',
