@@ -811,8 +811,9 @@
 <style>
   .chat-fab { position:fixed; bottom:28px; right:28px; width:56px; height:56px; border-radius:50%; background:#0070f2; border:none; color:#fff; font-size:1.5rem; cursor:pointer; box-shadow:0 4px 20px rgba(0,112,242,.4); z-index:9998; display:flex; align-items:center; justify-content:center; transition:transform .2s; }
   .chat-fab:hover { transform:scale(1.08); }
-  .chat-window { position:fixed; bottom:96px; right:28px; width:360px; max-height:520px; background:#fff; border-radius:18px; box-shadow:0 8px 40px rgba(0,0,0,.18); z-index:9999; display:none; flex-direction:column; overflow:hidden; }
+  .chat-window { position:fixed; bottom:96px; right:28px; width:360px; max-height:520px; background:#fff; border-radius:18px; box-shadow:0 8px 40px rgba(0,0,0,.18); z-index:9999; display:none; flex-direction:column; overflow:hidden; animation: chatSlideIn .2s ease; }
   .chat-window.open { display:flex; }
+  @keyframes chatSlideIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
   .chat-header { background:#0070f2; color:#fff; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; }
   .chat-header-info { display:flex; align-items:center; gap:10px; }
   .chat-avatar { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
@@ -827,15 +828,22 @@
   .chat-bubble { padding:10px 14px; border-radius:14px; font-size:.88rem; line-height:1.5; }
   .chat-msg.bot .chat-bubble { background:#f1f5f9; color:#1e293b; border-radius:4px 14px 14px 14px; }
   .chat-msg.user .chat-bubble { background:#0070f2; color:#fff; border-radius:14px 4px 14px 14px; }
-  .chat-typing { display:none; align-self:flex-start; }
-  .chat-typing .chat-bubble { background:#f1f5f9; color:#64748b; font-size:.82rem; }
+  .chat-msg.error .chat-bubble { background:#fff0f0; color:#c0392b; border-radius:4px 14px 14px 14px; font-size:.83rem; }
+  .chat-typing { align-self:flex-start; }
+  .typing-dots { display:flex; gap:4px; padding:12px 14px; background:#f1f5f9; border-radius:4px 14px 14px 14px; }
+  .typing-dots span { width:7px; height:7px; border-radius:50%; background:#94a3b8; animation:typingBounce 1.2s infinite; }
+  .typing-dots span:nth-child(2) { animation-delay:.2s; }
+  .typing-dots span:nth-child(3) { animation-delay:.4s; }
+  @keyframes typingBounce { 0%,60%,100% { transform:translateY(0); } 30% { transform:translateY(-6px); } }
   .chat-input-row { padding:12px 16px; border-top:1px solid #e2e8f0; display:flex; gap:8px; }
-  .chat-input-row input { flex:1; border:1.5px solid #e2e8f0; border-radius:10px; padding:9px 12px; font-size:.88rem; font-family:inherit; outline:none; }
+  .chat-input-row input { flex:1; border:1.5px solid #e2e8f0; border-radius:10px; padding:9px 12px; font-size:.88rem; font-family:inherit; outline:none; transition:border-color .2s; }
   .chat-input-row input:focus { border-color:#0070f2; }
-  .chat-send { background:#0070f2; color:#fff; border:none; border-radius:10px; padding:9px 14px; cursor:pointer; font-size:.9rem; }
+  .chat-input-row input:disabled { background:#f8fafc; color:#94a3b8; }
+  .chat-send { background:#0070f2; color:#fff; border:none; border-radius:10px; padding:9px 14px; cursor:pointer; font-size:.9rem; transition:background .2s; }
   .chat-send:hover { background:#0057c2; }
+  .chat-send:disabled { background:#93c5fd; cursor:not-allowed; }
   .chat-suggestions { padding:0 16px 12px; display:flex; flex-wrap:wrap; gap:6px; }
-  .chat-sug { background:#eff6ff; color:#0070f2; border:1px solid #bfdbfe; border-radius:20px; padding:4px 12px; font-size:.78rem; cursor:pointer; font-weight:500; }
+  .chat-sug { background:#eff6ff; color:#0070f2; border:1px solid #bfdbfe; border-radius:20px; padding:4px 12px; font-size:.78rem; cursor:pointer; font-weight:500; transition:background .15s; }
   .chat-sug:hover { background:#dbeafe; }
 </style>
 
@@ -885,6 +893,13 @@
     box.scrollTop = box.scrollHeight;
   }
 
+  function setLoading(on) {
+    const input = document.getElementById('chatInput');
+    const send = document.querySelector('.chat-send');
+    input.disabled = on;
+    send.disabled = on;
+  }
+
   function askSug(el) {
     document.getElementById('chatInput').value = el.textContent;
     document.getElementById('chatSuggestions').style.display = 'none';
@@ -896,29 +911,43 @@
     const msg = input.value.trim();
     if (!msg) return;
     input.value = '';
+    document.getElementById('chatSuggestions').style.display = 'none';
     addMsg(msg, 'user');
+    setLoading(true);
 
-    const typing = document.getElementById('chatMessages');
+    const box = document.getElementById('chatMessages');
     const typingEl = document.createElement('div');
-    typingEl.className = 'chat-msg bot chat-typing';
+    typingEl.className = 'chat-msg chat-typing';
     typingEl.id = 'typingIndicator';
-    typingEl.innerHTML = '<div class="chat-bubble">Thinking...</div>';
-    typingEl.style.display = 'flex';
-    typing.appendChild(typingEl);
-    typing.scrollTop = typing.scrollHeight;
+    typingEl.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+    box.appendChild(typingEl);
+    box.scrollTop = box.scrollHeight;
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
 
     try {
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg })
+        body: JSON.stringify({ message: msg }),
+        signal: controller.signal
       });
+      clearTimeout(timeout);
       const data = await res.json();
       document.getElementById('typingIndicator')?.remove();
       addMsg(data.reply || 'Sorry, I could not get a response.', 'bot');
     } catch(e) {
+      clearTimeout(timeout);
       document.getElementById('typingIndicator')?.remove();
-      addMsg('Sorry, something went wrong. Please try again.', 'bot');
+      if (e.name === 'AbortError') {
+        addMsg('The response is taking longer than usual. Please try again.', 'error');
+      } else {
+        addMsg('Something went wrong. Please check your connection and try again.', 'error');
+      }
+    } finally {
+      setLoading(false);
+      document.getElementById('chatInput').focus();
     }
   }
 
