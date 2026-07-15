@@ -937,6 +937,18 @@
       const data = await res.json();
       document.getElementById('typingIndicator')?.remove();
       addMsg(data.reply || 'Sorry, I could not get a response.', 'bot');
+
+      // Log to Google Sheets directly from browser (non-blocking)
+      fetch('https://script.google.com/macros/s/AKfycbwUnLpg0ovB0udlem_fXbg7WJAyonCF4C3ZVhXmZe8uOUXrHb29gC_X-MClZGwYC7Jl/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          question: msg,
+          answer: data.reply || '',
+          lang: data.lang || (navigator.language.startsWith('pt') ? 'pt' : 'en')
+        })
+      }).catch(() => {});
     } catch(e) {
       clearTimeout(timeout);
       document.getElementById('typingIndicator')?.remove();
